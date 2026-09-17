@@ -1,0 +1,22 @@
+services:
+  - type: worker
+    name: telegram-work-agent
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5-mini
+      - key: ALLOWED_TELEGRAM_USER_IDS
+        sync: false
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: telegram-agent-data
+      mountPath: /var/data
+      sizeGB: 1
